@@ -21,11 +21,18 @@ URL
 - Actuator - http://127.0.0.1:8080/actuator
 
 Аннотации
-- @Autowired
-- @PathVariable - `@PathVariable("organizationId") String organizationId` - берет значение `{organizationId}`  из path и сохраняет в переменную
-- @RequestBody - `@RequestBody License request` - отображает request в объект License
+- `@Bean`
+- `@Component`
+- `@Service`
+- `@Repository`
+- `@Autowired`
+
+HTTP заголовки
+- `@PathVariable` - `@PathVariable("organizationId") String organizationId` - берет значение `{organizationId}`  из path и сохраняет в переменную
+- `@RequestBody` - `@RequestBody License request` - отображает request в объект License
+- `@RequestHeader`- `@RequestHeader(value = "Accept-Language", required = false) Locale locale` - получает заголовки из HTTP request
 - HTTP аннотации
-  - @RequestMapping(value = "v1/organization/{organizationId}/license")
+  - `@RequestMapping(value = "v1/organization/{organizationId}/license")`
     - Get
       - `@GetMapping(value = "/{licenseId}")`
       - `@RequestMapping(value="/{licenseId}", method=RequestMethod.GET)`

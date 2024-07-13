@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
+
 // Сообщает SpringBoot что это служба REST и она автоматически сериализует / десериализует запросы / ответы в JSON
 @RestController
 // Экспортирует все эндпоинты HTTP которые начинаются с /v1/organization/{organizationId}/license
@@ -35,10 +37,11 @@ public class LicenseController {
     @PostMapping
     public ResponseEntity<String> createLicense(
             @PathVariable("organizationId") String organizationId,
-            @RequestBody License request
-    ) {
+            @RequestBody License request,
+            @RequestHeader(value = "Accept-Language", required = false) Locale locale
+            ) {
         System.out.println("controller demo request: " + request);
-        return ResponseEntity.ok(licenseService.createLicense(request, organizationId));
+        return ResponseEntity.ok(licenseService.createLicense(request, organizationId, locale));
     }
 
     @DeleteMapping(value = "/{licenseId}")
