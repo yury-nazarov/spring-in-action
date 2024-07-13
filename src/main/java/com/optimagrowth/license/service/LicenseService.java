@@ -11,7 +11,12 @@ import com.optimagrowth.license.model.License;
 
 @Service
 public class LicenseService {
-    public License getLicense(String licenseId, String organizationId){
+    @Autowired
+    MessageSource messages;
+
+    public License getLicense(String licenseId,
+                              String organizationId
+    ){
         License license = new License();
 
         license.setId(new Random().nextInt(1000));
@@ -24,8 +29,6 @@ public class LicenseService {
         return license;
     }
 
-    @Autowired
-    MessageSource messages;
     public String createLicense(License license,
                                 String organizationId,
                                 Locale locale
@@ -42,26 +45,29 @@ public class LicenseService {
         return responseMessage;
     }
 
-    public String updateLicense(License license, String organizationId){
+    public String updateLicense(License license, String organizationId, Locale locale){
         String responseMessage = null;
 
         if (license != null) {
             license.setOrganizationId(organizationId);
             responseMessage = String.format(
-                    messages.getMessage("license.update.message", null, null),
+                    messages.getMessage("license.update.message", null, locale),
                     license.toString());
         }
 
         return responseMessage;
     }
 
-    public String deleteLicense(String licenseId, String organizationId){
-        String responseMeggage = null;
+    public String deleteLicense(String licenseId,
+                                String organizationId,
+                                Locale locale
+    ){
+        String responseMessage = null;
 
-        responseMeggage = String.format(
-                "Deleting license with id %s for the organization %s",
+        responseMessage = String.format(
+                messages.getMessage("license.delete.message", null, locale),
                 licenseId, organizationId
         );
-        return responseMeggage;
+        return responseMessage;
     }
 }
